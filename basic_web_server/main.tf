@@ -15,7 +15,7 @@ provider "aws" {
 resource "aws_instance" "example" {
     ami =           "ami-0dfcb1ef8550277af"
     instance_type = "t2.micro"
-    #vpc_security_group_ids = [aws_security_group.instance.id]
+    vpc_security_group_ids = [aws_security_group.instance.id]
 
     tags = {
         Name = "Basic web server"
