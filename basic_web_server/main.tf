@@ -44,7 +44,7 @@ resource "aws_security_group" "web_server" {
 
 variable "port_number" {
   description = "the tcp port to open the web server to"
-  type = "number"
+  type = number
   default = "8080"
 
 }
