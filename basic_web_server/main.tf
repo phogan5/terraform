@@ -15,7 +15,7 @@ provider "aws" {
 resource "aws_instance" "example" {
     ami =           "ami-0dfcb1ef8550277af"
     instance_type = "t2.micro"
-    vpc_security_group_ids = [aws_security_group.instance.id]
+    vpc_security_group_ids = [aws_security_group.web_server.id]
 
     tags = {
         Name = "Basic web server"
@@ -25,7 +25,7 @@ resource "aws_instance" "example" {
     user_data = <<-EOF
                 #!/bin/bash
                 echo "Hello, World" > index.html
-                nohup busybox httpd -f -p 8080 & 
+                nohup busybox httpd -f -p ${var.port_number} & 
                 EOF
 
     user_data_replace_on_change = true
@@ -35,9 +35,16 @@ resource "aws_security_group" "web_server" {
     name = "web-server-traffic"
 
     ingress {
-        from_port = 8080
-        to_port = 8080
+        from_port = var.port_number
+        to_port = var.port_number
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
+}
+
+variable "port_number" {
+  description = "the tcp port to open the web server to"
+  type = "number"
+  default = "8080"
+
 }
