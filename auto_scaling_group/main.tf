@@ -8,6 +8,17 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "tf-backend-phi87819"
+    key = "global/s3/asg/terraform.tfstate"
+    region = "us-east-1"
+
+    dynamodb_table = "tf-backend-phi87819"
+    encrypt = true
+  }
+}
+
 provider "aws" {
   region = "us-east-1"
 }
