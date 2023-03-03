@@ -12,6 +12,17 @@ provider "aws" {
   region = "us-east-1"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "tf-backend-phi87819"
+    key = "global/s3/web_server/terraform.tfstate"
+    region = "us-east-1"
+
+    dynamodb_table = "tf-backend-phi87819"
+    encrypt = true
+  }
+}
+
 resource "aws_instance" "example" {
     ami =           "ami-0dfcb1ef8550277af"
     instance_type = "t2.micro"
