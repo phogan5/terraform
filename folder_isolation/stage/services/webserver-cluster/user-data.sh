@@ -6,4 +6,6 @@ cat > index.html <<EOF
 <p>DB Port: ${db_port}</p>
 EOF
 
-nohup busybox httpd -f -p ${server_port} &
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable --now httpd
