@@ -9,7 +9,6 @@ terraform {
   }
 }
 
-
 data "terraform_remote_state" "db" {
   backend = "s3"
   config = {
@@ -17,6 +16,14 @@ data "terraform_remote_state" "db" {
     key = "stage/data-stores/mysql/terraform.tfstate"
     region = "us-east-1"
   }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+module "webserver_cluster" {
+  source = "../../../../modules/services/webserver-cluster"
 }
 
 resource "aws_launch_configuration" "launch_config" {
@@ -59,7 +66,7 @@ resource "aws_autoscaling_group" "asg" {
 
     tag {
       key = "Name"
-      value = "terraform-asg-example"
+      value = "${var.cluster_name}-asg"
       propagate_at_launch = true
     }
 
@@ -108,7 +115,7 @@ resource "aws_alb_listener_rule" "asg" {
 }
 
 resource "aws_alb_target_group" "asg" {
-    name = "terraform-asg-example"
+    name = "${var.cluster_name}-alb"
     port = var.port_number
     protocol = "HTTP"
     vpc_id = data.aws_vpc.default.id
@@ -125,7 +132,7 @@ resource "aws_alb_target_group" "asg" {
 }
 
 resource "aws_security_group" "alb_sg" {
-    name = "alb_sg"
+    name = "${var.cluster_name}-sg"
 
     #allow inbound http requests
     ingress {
@@ -134,9 +141,6 @@ resource "aws_security_group" "alb_sg" {
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
-
-    
-
     #allow outbound requests
     egress {
       cidr_blocks = [ "0.0.0.0/0" ]
@@ -147,7 +151,7 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_security_group" "web_server" {
-    name = "web-server-traffic"
+    name = "${var.cluster_name}-instance"
 
     ingress {
         from_port = var.port_number
