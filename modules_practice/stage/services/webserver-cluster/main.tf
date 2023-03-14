@@ -32,6 +32,14 @@ data "terraform_remote_state" "db" {
   }
 }
 
+module "web_server_cluster" {
+  source = "../../../../modules/services/webserver-cluster"
+  
+  cluster_name = "webservers-stage"
+  db_remote_state_bucket = "tf-backend-phi87819"
+  db_remote_state_key = "stage/data-stores/mysql/terraform.tfstate"
+}
+
 resource "aws_launch_configuration" "launch_config" {
     image_id = "ami-0dfcb1ef8550277af"
     instance_type = "t2.micro"
