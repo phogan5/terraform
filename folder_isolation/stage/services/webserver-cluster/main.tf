@@ -23,16 +23,26 @@ provider "aws" {
   region = "us-east-1"
 }
 
+data "terraform_remote_state" "db" {
+  backend = "s3"
+  config = {
+    bucket = "tf-backend-phi87819"
+    key = "stage/data-stores/mysql/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 resource "aws_launch_configuration" "launch_config" {
     image_id = "ami-0dfcb1ef8550277af"
     instance_type = "t2.micro"
     security_groups = [aws_security_group.web_server.id]
   
-    user_data = <<-EOF
-    #!/bin/bash
-    echo "Hello World!" > index.html
-    nohup busybox httpd -f -p ${var.port_number} &
-    EOF
+    #Render the user data as a template
+    user_data = templatefile("user-data.sh", {
+      server_port = var.port_number
+      db_address = data.terraform_remote_state.db.outputs.address
+      db_port = data.terraform_remote_state.db.outputs.port
+    })
 
     ##Required when using a launch configuration with an auto scaling group
     lifecycle {
