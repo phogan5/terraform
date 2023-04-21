@@ -16,7 +16,10 @@ resource "aws_instance" "windows_server" {
     ami = "ami-0bde1eb2c18cb2abe" #Microsoft Windows Server 2022 Base
     instance_type = "t2.medium"
     key_name = "us-east-1"
-    security_groups = [aws_security_group.homelab-sg.name]
+    vpc_security_group_ids = [aws_security_group.homelab-sg.id]
+    subnet_id = "subnet-0e1767c810b88f50e"
+    private_ip = "172.31.0.110"
+    
 
     tags = {
       "Name" = "hl_win_server_22"
@@ -26,10 +29,13 @@ resource "aws_instance" "windows_server" {
 }
 
 resource "aws_instance" "redhat_server" {
-  ami = "ami-016eb5d644c333ccb" #Red Hat Enterprise Linux 9 (HVM), SSD Volume Type
-  instance_type = "t2.micro"
-  key_name = "us-east-1"
-  security_groups = [aws_security_group.homelab-sg.name]
+    ami = "ami-016eb5d644c333ccb" #Red Hat Enterprise Linux 9 (HVM), SSD Volume Type
+    instance_type = "t2.micro"
+    key_name = "us-east-1"
+    vpc_security_group_ids = [aws_security_group.homelab-sg.id]
+    subnet_id = "subnet-0e1767c810b88f50e"
+    private_ip = "172.31.0.120"
+
 
     tags = {
       "Name" = "hl_redhat"
@@ -39,7 +45,8 @@ resource "aws_instance" "redhat_server" {
 }
 
 resource "aws_security_group" "homelab-sg" {
-    name = "homelab-general"
+    name = "homelab-sg"
+    vpc_id = "vpc-08b6a277deb2d6942"
 
     ingress {
         description = "rdp access"
@@ -61,6 +68,20 @@ resource "aws_security_group" "homelab-sg" {
         to_port = -1 #All ports
         protocol = "icmp"
         cidr_blocks = ["68.60.46.52/32"]
+    }
+        ingress {
+        description = "icmp"
+        from_port = -1
+        to_port = -1 #All ports
+        protocol = "icmp"
+        cidr_blocks = ["172.31.0.0/20"]
+    }
+        egress {
+        description = "icmp"
+        from_port = -1
+        to_port = -1 #All ports
+        protocol = "icmp"
+        cidr_blocks = ["172.31.0.0/20"]
     }
 
 }
