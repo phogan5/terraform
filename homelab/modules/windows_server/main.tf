@@ -2,17 +2,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-terraform {
-    backend "s3" {
-      bucket = "homelab-remote-backend87819"
-      key = "global/s3/terraform.tfstate"
-      region = "us-east-1"
-
-      dynamodb_table = "homelab_locks"
-      encrypt = true 
-    }
-}
-
 data "aws_secretsmanager_secret_version" "creds" {
   secret_id = "tf-secret"
 }
@@ -27,7 +16,7 @@ resource "aws_instance" "windows_server" {
     ami = "ami-0bde1eb2c18cb2abe" #Microsoft Windows Server 2022 Base
     instance_type = "t2.medium"
     key_name = "us-east-1"
-    vpc_security_group_ids = var.sg_id
+    vpc_security_group_ids = [var.sg_id]
     subnet_id = var.subnet_id
     private_ip = "172.31.0.110"
     

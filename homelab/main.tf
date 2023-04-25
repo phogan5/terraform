@@ -28,5 +28,12 @@ module "linux_server" {
     source = "/Users/phogan5/terraform/homelab/modules/linux_server"
 
     sg_id = "${module.homelab_network.sg_id}"
-    subnet_id = "${subnet-0e1767c810b88f50e}"
+    subnet_id = "subnet-0e1767c810b88f50e"
+}
+
+module "windows_server" {
+    source = "/Users/phogan5/terraform/homelab/modules/windows_server"
+
+    sg_id = "${module.homelab_network.sg_id}"
+    subnet_id = "subnet-0e1767c810b88f50e"
 }
