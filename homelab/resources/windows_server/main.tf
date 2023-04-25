@@ -28,7 +28,7 @@ resource "aws_instance" "windows_server" {
     key_name = "us-east-1"
     vpc_security_group_ids = [aws_security_group.homelab-sg.id]
     subnet_id = "subnet-0e1767c810b88f50e"
-    private_ip = "172.31.0.110"
+    private_ip = "172.31.0.110" 
     
 
     tags = {
@@ -65,14 +65,14 @@ resource "aws_security_group" "homelab-sg" {
         from_port = 3389
         to_port = 3389
         protocol = "tcp"
-        cidr_blocks = ["68.60.46.52/32"]
+        cidr_blocks = ["68.60.46.52/32", "47.35.117.78/32"]
     }
         ingress {
         description = "ssh access"
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = ["68.60.46.52/32"]
+        cidr_blocks = ["68.60.46.52/32", "47.35.117.78/32"]
     }
         ingress {
         description = "icmp"
@@ -97,3 +97,9 @@ resource "aws_security_group" "homelab-sg" {
     }
 
 }
+
+
+##TODO: 
+#- Modularize folder structure
+#- Set static DNS names so I dont have to get a new password/ssh command everytime I create instance
+#- Create .ps user data script for hl_win_server_22 to create firewall rule to allow ICMP (and other) connections.
