@@ -15,7 +15,6 @@ terraform {
 
 module "remote_datastore" {
     source = "/Users/phogan5/terraform/homelab/data_stores"
-
 }
 
 module "homelab_network" {
