@@ -16,9 +16,16 @@ resource "aws_vpc" "tf_vpc" {
     }
 }
 
-#resouce "aws_flow_log" "this" {
-#https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/master/vpc-flow-logs.tf
-#}
+resource "aws_flow_log" "tf_flow_log" {
+  log_destination      = aws_s3_bucket.flow-log-bucket.arn
+  log_destination_type = "s3"
+  traffic_type         = "ALL"
+  vpc_id               = aws_vpc.tf_vpc.id
+}
+
+resource "aws_s3_bucket" "flow-log-bucket" {
+  bucket = "flow-log-bucket-phi87819"
+}
 
 resource "aws_internet_gateway" "tf_igw" {
     vpc_id = aws_vpc.tf_vpc.id

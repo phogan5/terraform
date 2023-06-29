@@ -6,5 +6,5 @@ variable "sg_id" {
 variable "subnet_id" {
     type = string
     description = "The ID of the subnet used when creating the RHEL and Windows servers"
-    default = "subnet-0e1767c810b88f50e"
+    default = "subnet-0ddddfd8bef34831f"
 }
