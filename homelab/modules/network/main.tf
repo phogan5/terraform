@@ -2,12 +2,23 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_s3_bucket" "flow_log_s3" {
+    tags = {
+        "Name" = "secure_vpc_flow_logs"
+    }
+}
+
+
 resource "aws_vpc" "tf_vpc" {
     cidr_block = "10.0.0.0/16"
     tags = {
       "Name" = "secure_vpc"
     }
 }
+
+#resouce "aws_flow_log" "this" {
+#https://github.com/terraform-aws-modules/terraform-aws-vpc/blob/master/vpc-flow-logs.tf
+#}
 
 resource "aws_internet_gateway" "tf_igw" {
     vpc_id = aws_vpc.tf_vpc.id
