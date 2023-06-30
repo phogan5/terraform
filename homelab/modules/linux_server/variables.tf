@@ -2,13 +2,19 @@ variable "sg_id" {
     type = string
     description = "The ID of the security group created for the RHEL and Windows servers"
     #secure-vpc default sg
-    default = "sg-0054047ff951519f4"
+    default = "sg-077719556036cf09f"
 }
 
 variable "subnet_id" {
     type = string
     description = "The ID of the subnet used when creating the RHEL and Windows servers"
-    default = "subnet-092a6e9b543ef5ab2"
+    default = "	subnet-0ff14dab42cc0ed49"
+}
+
+variable "vpc_id" {
+    type = string
+    default = "vpc-0a97ebce69d66ec31"
+  
 }
 
 variable "instance_type" {
