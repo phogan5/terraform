@@ -8,7 +8,8 @@ resource "aws_instance" "redhat_server" {
     key_name = "us-east-1"
     vpc_security_group_ids = [var.sg_id]
     subnet_id = var.subnet_id
-    private_ip = "10.0.0.10"
+    private_ip = "10.0.48.10"
+
 
 
     tags = {
