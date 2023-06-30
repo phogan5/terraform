@@ -4,11 +4,12 @@ provider "aws" {
 
 resource "aws_instance" "redhat_server" {
     ami = "ami-016eb5d644c333ccb" #Red Hat Enterprise Linux 9 (HVM), SSD Volume Type
-    instance_type = "t2.micro"
+    instance_type = var.instance_type
     key_name = "us-east-1"
     vpc_security_group_ids = [var.sg_id]
     subnet_id = var.subnet_id
     private_ip = "10.0.48.10"
+
 
 
     tags = {
@@ -16,4 +17,13 @@ resource "aws_instance" "redhat_server" {
       "tf_managed" = "True"
       "tf_repo" = "terraform/homelab/modules/linux_server/"
     }
+}
+
+resource "aws_eip" "tf_eip" {
+  domain = "vpc"
+}
+
+resource "aws_eip_association" "tf_eip_assoc" {
+  instance_id = aws_instance.redhat_server.id
+  allocation_id = aws_eip.tf_eip.allocation_id
 }
