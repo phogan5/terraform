@@ -20,10 +20,6 @@ resource "aws_instance" "redhat_server" {
 }
 
 resource "aws_eip" "tf_eip" {
-  domain = "vpc"
-}
-
-resource "aws_eip_association" "tf_eip_assoc" {
-  instance_id = aws_instance.redhat_server.id
-  allocation_id = aws_eip.tf_eip.allocation_id
+  vpc = true
+  instance = aws_instance.redhat_server.id
 }

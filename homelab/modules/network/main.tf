@@ -2,6 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
+
 resource "aws_s3_bucket" "flow_log_s3" {
     tags = {
         "Name" = "secure_vpc_flow_logs"

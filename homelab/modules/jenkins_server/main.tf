@@ -1,6 +1,5 @@
 provider "aws" {
   region = "us-east-1"
-  profile = "terraform-user"
 }
 
 resource "aws_instance" "jenkins_server" {
