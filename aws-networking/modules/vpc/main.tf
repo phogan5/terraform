@@ -152,7 +152,7 @@ resource "aws_subnet" "sn-app-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.160.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:750A::/64"
+  ipv6_cidr_block                 = "2600:1f18:4245:750a::/64"
 
   tags = {
     Name = "sn-app-1c"
@@ -164,7 +164,7 @@ resource "aws_subnet" "sn-web-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.176.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:750B::/64"
+  ipv6_cidr_block                 = "2600:1f18:4245:750b::/64"
 
   tags = {
     Name = "sn-web-1c"
