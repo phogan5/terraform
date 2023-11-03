@@ -31,8 +31,8 @@ resource "aws_subnet" "sn-reserved-1a" {
   vpc_id                          = aws_vpc.a4l-vpc1.id
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.0.0/20"
-  #assign_ipv6_address_on_creation = true
-  #ipv6_cidr_block                 = "2600:1f18:3ae6:4600::/64"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = "2600:1f18:4245:7500::/64"
 
   tags = {
     Name = "sn-reserved-1a"
@@ -43,8 +43,8 @@ resource "aws_subnet" "sn-db-1a" {
   vpc_id                          = aws_vpc.a4l-vpc1.id
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.16.0/20"
-  #assign_ipv6_address_on_creation = true
-  #ipv6_cidr_block                 = "2600:1f18:3ae6:4601::/64"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = "2600:1f18:4245:7501::/64"
 
   tags = {
     Name = "sn-db-1a"
@@ -55,8 +55,8 @@ resource "aws_subnet" "sn-app-1a" {
   vpc_id                          = aws_vpc.a4l-vpc1.id
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.32.0/20"
-  #assign_ipv6_address_on_creation = true
-  #ipv6_cidr_block                 = "2600:1f18:3ae6:4602::/64"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = "2600:1f18:4245:7502::/64"
 
   tags = {
     Name = "sn-app-1a"
@@ -67,8 +67,8 @@ resource "aws_subnet" "sn-web-1a" {
   vpc_id                          = aws_vpc.a4l-vpc1.id
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.48.0/20"
-  #assign_ipv6_address_on_creation = true
-  #ipv6_cidr_block                 = "2600:1f18:3ae6:4603::/64"
+  assign_ipv6_address_on_creation = true
+  ipv6_cidr_block                 = "2600:1f18:4245:7503::/64"
 
   tags = {
     Name = "sn-web-1a"
