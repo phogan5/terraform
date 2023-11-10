@@ -32,7 +32,7 @@ resource "aws_subnet" "sn-reserved-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.0.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7500::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad00::/64"
 
   tags = {
     Name = "sn-reserved-1a"
@@ -44,7 +44,7 @@ resource "aws_subnet" "sn-db-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.16.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7501::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad01::/64"
 
   tags = {
     Name = "sn-db-1a"
@@ -56,7 +56,7 @@ resource "aws_subnet" "sn-app-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.32.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7502::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad02::/64"
 
   tags = {
     Name = "sn-app-1a"
@@ -68,7 +68,7 @@ resource "aws_subnet" "sn-web-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.48.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7503::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad03::/64"
 
   tags = {
     Name = "sn-web-1a"
@@ -80,7 +80,7 @@ resource "aws_subnet" "sn-reserved-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.64.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7504::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad04::/64"
 
   tags = {
     Name = "sn-reserved-1b"
@@ -92,7 +92,7 @@ resource "aws_subnet" "sn-db-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.80.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7505::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad05::/64"
 
   tags = {
     Name = "sn-db-1b"
@@ -104,7 +104,7 @@ resource "aws_subnet" "sn-app-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.96.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7506::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad06::/64"
 
   tags = {
     Name = "sn-app-1b"
@@ -116,7 +116,7 @@ resource "aws_subnet" "sn-web-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.112.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7507::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad07::/64"
 
   tags = {
     Name = "sn-web-1b"
@@ -128,7 +128,7 @@ resource "aws_subnet" "sn-reserved-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.128.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7508::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad08::/64"
 
   tags = {
     Name = "sn-reserved-1c"
@@ -140,7 +140,7 @@ resource "aws_subnet" "sn-db-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.144.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7509::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad09::/64"
 
   tags = {
     Name = "sn-db-1c"
@@ -152,7 +152,7 @@ resource "aws_subnet" "sn-app-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.160.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:750a::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad0a::/64"
 
   tags = {
     Name = "sn-app-1c"
@@ -164,7 +164,7 @@ resource "aws_subnet" "sn-web-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.176.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:750b::/64"
+  ipv6_cidr_block                 = "2600:1f18:3887:ad0b::/64"
 
   tags = {
     Name = "sn-web-1c"
