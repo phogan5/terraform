@@ -8,6 +8,7 @@ resource "aws_instance" "ec2_1"{
     instance_type = "t3.micro"
     key_name = aws_key_pair.demo_ec2_keypair.key_name
     count = 2
+    subnet_id = var.subnet-app-1a
 
 }
 
