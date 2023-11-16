@@ -29,12 +29,14 @@ resource "aws_vpc" "a4l-vpc1" {
 
 resource "aws_internet_gateway" "primary_igw" {
   vpc_id = aws_vpc.a4l-vpc1.id
+  depends_on = [ aws_vpc.a4l-vpc1 ]
 
   tags = {
     Name = "a4l-vpc1-igw"
   }
 }
-
+//todo: figure out why $terraform destroy wont destroy the remaining "main" route table.
+//workaround: manually delete the a4l VPC in the console (will delete associated IGW and RT)
 resource "aws_route_table" "primary_rt" {
   vpc_id = aws_vpc.a4l-vpc1.id
 
@@ -46,6 +48,7 @@ resource "aws_route_table" "primary_rt" {
     ipv6_cidr_block = "::/0"
     gateway_id      = aws_internet_gateway.primary_igw.id
   }
+  depends_on = [ aws_vpc.a4l-vpc1 ]
   tags = {
     Name = "a4l-vpc1-rt-web"
   }
@@ -54,16 +57,21 @@ resource "aws_route_table" "primary_rt" {
 resource "aws_route_table_association" "public_rt_assoc_1a" {
   route_table_id = aws_route_table.primary_rt.id
   subnet_id      = aws_subnet.sn-web-1a.id
+  depends_on = [ aws_route_table.primary_rt ]
 }
 
 resource "aws_route_table_association" "public_rt_assoc_1b" {
   route_table_id = aws_route_table.primary_rt.id
   subnet_id      = aws_subnet.sn-web-1b.id
+  depends_on = [ aws_route_table.primary_rt ]
+
 }
 
 resource "aws_route_table_association" "public_rt_assoc_1c" {
   route_table_id = aws_route_table.primary_rt.id
   subnet_id      = aws_subnet.sn-web-1c.id
+  depends_on = [ aws_route_table.primary_rt ]
+
 }
 
 resource "aws_route_table" "natgw-1-rt" {
@@ -73,6 +81,7 @@ resource "aws_route_table" "natgw-1-rt" {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.natgw-1.id
   }
+  depends_on = [ aws_vpc.a4l-vpc1 ]
   tags = {
     Name = "a4l-vpc1-rt-privateA"
   }
