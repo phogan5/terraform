@@ -5,27 +5,27 @@ variable "profile" {
 }
 
 variable "ami" {
-  type = string
+  type        = string
   description = "the ec2 ami to use"
-  default = "ami-0e8a34246278c21e4"
+  default     = "ami-0e8a34246278c21e4"
 }
 
 variable "vpc_id" {
-  type = string
+  type        = string
   description = "the vpc id"
 }
 
-variable subnet-web-1a {
-  type = string
+variable "subnet-web-1a" {
+  type        = string
   description = "subnet id of subnet app-1a"
 }
 
-variable ec2_profile {
-  type = string
+variable "ec2_profile" {
+  type        = string
   description = "the ec2 instance profile created"
 }
 
-variable web_sg {
-  type = string
+variable "web_sg" {
+  type        = string
   description = "access to web servers"
 }

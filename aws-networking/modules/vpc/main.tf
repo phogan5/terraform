@@ -37,14 +37,14 @@ resource "aws_internet_gateway" "primary_igw" {
 
 resource "aws_route_table" "primary_rt" {
   vpc_id = aws_vpc.a4l-vpc1.id
-  
+
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.primary_igw.id
   }
   route {
     ipv6_cidr_block = "::/0"
-    gateway_id = aws_internet_gateway.primary_igw.id  
+    gateway_id      = aws_internet_gateway.primary_igw.id
   }
   tags = {
     Name = "a4l-vpc1-rt-web"
@@ -53,36 +53,36 @@ resource "aws_route_table" "primary_rt" {
 
 resource "aws_route_table_association" "public_rt_assoc_1a" {
   route_table_id = aws_route_table.primary_rt.id
-  subnet_id = aws_subnet.sn-web-1a.id
+  subnet_id      = aws_subnet.sn-web-1a.id
 }
 
 resource "aws_route_table_association" "public_rt_assoc_1b" {
   route_table_id = aws_route_table.primary_rt.id
-  subnet_id = aws_subnet.sn-web-1b.id
+  subnet_id      = aws_subnet.sn-web-1b.id
 }
 
 resource "aws_route_table_association" "public_rt_assoc_1c" {
   route_table_id = aws_route_table.primary_rt.id
-  subnet_id = aws_subnet.sn-web-1c.id
+  subnet_id      = aws_subnet.sn-web-1c.id
 }
 
 resource "aws_security_group" "web_sg" {
-  name = "a4l-web-sg"
+  name        = "a4l-web-sg"
   description = "Provides default traffic allowances"
-  vpc_id = aws_vpc.a4l-vpc1.id
+  vpc_id      = aws_vpc.a4l-vpc1.id
 
   ingress {
     description = "ssh from anywhere"
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -129,7 +129,7 @@ resource "aws_subnet" "sn-web-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.48.0/20"
   assign_ipv6_address_on_creation = true
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch         = true
   ipv6_cidr_block                 = "2600:1f18:57e0:1803::/64"
 
   tags = {
@@ -178,7 +178,7 @@ resource "aws_subnet" "sn-web-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.112.0/20"
   assign_ipv6_address_on_creation = true
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch         = true
   ipv6_cidr_block                 = "2600:1f18:57e0:1807::/64"
 
   tags = {
@@ -227,7 +227,7 @@ resource "aws_subnet" "sn-web-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.176.0/20"
   assign_ipv6_address_on_creation = true
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch         = true
   ipv6_cidr_block                 = "2600:1f18:57e0:180b::/64"
 
   tags = {

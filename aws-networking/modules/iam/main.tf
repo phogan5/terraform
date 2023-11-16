@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "vpc_logging_trust_policy" {
     effect = "Allow"
 
     principals {
-      type = "Service"
+      type        = "Service"
       identifiers = ["vpc-flow-logs.amazonaws.com"]
     }
 
@@ -60,7 +60,7 @@ resource "aws_iam_role_policy_attachment" "ssm_policy_attach" {
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch_policy_attach" {
-  role = aws_iam_role.flow_logs_role.name
+  role       = aws_iam_role.flow_logs_role.name
   policy_arn = data.aws_iam_policy.CloudWatchLogsFullAccess.arn
 }
 
@@ -71,7 +71,7 @@ resource "aws_iam_role" "ec2_role" {
 }
 
 resource "aws_iam_role" "flow_logs_role" {
-  name = "flow_logs_role"
-  path = "/"
+  name               = "flow_logs_role"
+  path               = "/"
   assume_role_policy = data.aws_iam_policy_document.vpc_logging_trust_policy.json
 }
