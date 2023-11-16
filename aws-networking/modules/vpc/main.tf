@@ -66,6 +66,87 @@ resource "aws_route_table_association" "public_rt_assoc_1c" {
   subnet_id      = aws_subnet.sn-web-1c.id
 }
 
+resource "aws_route_table" "natgw-1-rt" {
+  vpc_id = aws_vpc.a4l-vpc1.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.natgw-1.id
+  }
+  tags = {
+    Name = "a4l-vpc1-rt-privateA"
+  }
+}
+
+resource "aws_route_table_association" "natgw-1-rt-assoc-app" {
+  route_table_id = aws_route_table.natgw-1-rt.id
+  subnet_id = aws_subnet.sn-app-1a.id
+}
+
+resource "aws_route_table_association" "natgw-1-rt-assoc-db" {
+  route_table_id = aws_route_table.natgw-1-rt.id
+  subnet_id = aws_subnet.sn-db-1a.id
+}
+
+resource "aws_route_table_association" "natgw-1-rt-assoc-reserved" {
+  route_table_id = aws_route_table.natgw-1-rt.id
+  subnet_id = aws_subnet.sn-reserved-1a.id
+}
+
+resource "aws_route_table" "natgw-2-rt" {
+  vpc_id = aws_vpc.a4l-vpc1.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.natgw-2.id
+  }
+  tags = {
+    Name = "a4l-vpc1-rt-privateB"
+  }
+}
+
+resource "aws_route_table_association" "natgw-2-rt-assoc-app" {
+  route_table_id = aws_route_table.natgw-2-rt.id
+  subnet_id = aws_subnet.sn-app-1b.id
+}
+
+resource "aws_route_table_association" "natgw-2-rt-assoc-db" {
+  route_table_id = aws_route_table.natgw-2-rt.id
+  subnet_id = aws_subnet.sn-db-1b.id
+}
+
+resource "aws_route_table_association" "natgw-2-rt-assoc-reserved" {
+  route_table_id = aws_route_table.natgw-2-rt.id
+  subnet_id = aws_subnet.sn-reserved-1b.id
+}
+
+resource "aws_route_table" "natgw-3-rt" {
+  vpc_id = aws_vpc.a4l-vpc1.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.natgw-3.id
+  }
+  tags = {
+    Name = "a4l-vpc1-rt-privateC"
+  }
+}
+
+resource "aws_route_table_association" "natgw-3-rt-assoc-app" {
+  route_table_id = aws_route_table.natgw-3-rt.id
+  subnet_id = aws_subnet.sn-app-1c.id
+}
+
+resource "aws_route_table_association" "natgw-3-rt-assoc-db" {
+  route_table_id = aws_route_table.natgw-3-rt.id
+  subnet_id = aws_subnet.sn-db-1c.id
+}
+
+resource "aws_route_table_association" "natgw-3-rt-assoc-reserved" {
+  route_table_id = aws_route_table.natgw-3-rt.id
+  subnet_id = aws_subnet.sn-reserved-1c.id
+}
+
 resource "aws_security_group" "web_sg" {
   name        = "a4l-web-sg"
   description = "Provides default traffic allowances"
@@ -85,7 +166,57 @@ resource "aws_security_group" "web_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
 
+resource "aws_nat_gateway" "natgw-1" {
+  subnet_id = aws_subnet.sn-web-1a.id
+  allocation_id = aws_eip.natgw-1-eip.id
+
+  tags = {
+    Name = "a4l-vpc1-natgw-a"
+  }
+}
+
+resource "aws_nat_gateway" "natgw-2" {
+  subnet_id = aws_subnet.sn-web-1b.id
+  allocation_id = aws_eip.natgw-2-eip.id
+
+  tags = {
+    Name = "a4l-vpc1-natgw-b"
+  }
+}
+
+resource "aws_nat_gateway" "natgw-3" {
+  subnet_id = aws_subnet.sn-web-1c.id
+  allocation_id = aws_eip.natgw-3-eip.id
+
+  tags = {
+    Name = "a4l-vpc1-natgw-c"
+  }
+}
+
+resource "aws_eip" "natgw-1-eip" {
+  depends_on = [aws_internet_gateway.primary_igw]
+
+  tags = {
+    Name = "a4l-vpc1-natgw-a-eip"
+  }
+}
+
+resource "aws_eip" "natgw-2-eip" {
+  depends_on = [aws_internet_gateway.primary_igw]
+
+  tags = {
+    Name = "a4l-vpc1-natgw-b-eip"
+  }
+}
+
+resource "aws_eip" "natgw-3-eip" {
+  depends_on = [aws_internet_gateway.primary_igw]
+
+  tags = {
+    Name = "a4l-vpc1-natgw-c-eip"
+  }
 }
 
 resource "aws_subnet" "sn-reserved-1a" {

@@ -17,6 +17,11 @@ variable "vpc_id" {
 
 variable "subnet-web-1a" {
   type        = string
+  description = "subnet id of subnet web-1a"
+}
+
+variable "subnet-app-1a" {
+  type        = string
   description = "subnet id of subnet app-1a"
 }
 
