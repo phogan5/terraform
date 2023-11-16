@@ -15,7 +15,8 @@ module "ec2" {
   source        = "./ec2"
   vpc_id        = module.vpc.vpc_id
   ec2_profile   = module.iam.ec2_profile
-  subnet-app-1a = module.vpc.subnet-app-1a
+  subnet-web-1a = module.vpc.subnet-web-1a
+  web_sg        = module.vpc.web_sg
 }
 
 module "iam" {

@@ -15,7 +15,7 @@ variable "vpc_id" {
   description = "the vpc id"
 }
 
-variable subnet-app-1a {
+variable subnet-web-1a {
   type = string
   description = "subnet id of subnet app-1a"
 }
@@ -23,4 +23,9 @@ variable subnet-app-1a {
 variable ec2_profile {
   type = string
   description = "the ec2 instance profile created"
+}
+
+variable web_sg {
+  type = string
+  description = "access to web servers"
 }

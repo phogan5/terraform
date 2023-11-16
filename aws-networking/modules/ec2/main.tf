@@ -7,14 +7,12 @@ provider "aws" {
 resource "aws_instance" "ec2_1"{
     ami = var.ami
     instance_type = "t3.micro"
-    count = 2
-    subnet_id = var.subnet-app-1a
+    subnet_id = var.subnet-web-1a
     key_name = "us-east-1"
     iam_instance_profile = var.ec2_profile
-}
+    security_groups = [var.web_sg]
 
-
-
-resource "aws_security_group" "ec2_default_security_group" {
-    name = "launch-wiard-fuck-you"
+    tags = {
+      Name = "a4l-bastion-host"
+    }
 }
