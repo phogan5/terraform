@@ -7,6 +7,12 @@ output "vpc_id" {
 output "subnet-web-1a" {
   value       = aws_subnet.sn-web-1a.id
   sensitive   = false
+  description = "the subnet id of subnet web-1a"
+}
+
+output "subnet-app-1a" {
+  value       = aws_subnet.sn-app-1a.id
+  sensitive   = false
   description = "the subnet id of subnet app-1a"
 }
 
