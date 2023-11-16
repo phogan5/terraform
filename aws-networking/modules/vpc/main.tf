@@ -27,12 +27,73 @@ resource "aws_vpc" "a4l-vpc1" {
   }
 }
 
+resource "aws_internet_gateway" "primary_igw" {
+  vpc_id = aws_vpc.a4l-vpc1.id
+
+  tags = {
+    Name = "a4l-vpc1-igw"
+  }
+}
+
+resource "aws_route_table" "primary_rt" {
+  vpc_id = aws_vpc.a4l-vpc1.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.primary_igw.id
+  }
+  route {
+    ipv6_cidr_block = "::/0"
+    gateway_id      = aws_internet_gateway.primary_igw.id
+  }
+  tags = {
+    Name = "a4l-vpc1-rt-web"
+  }
+}
+
+resource "aws_route_table_association" "public_rt_assoc_1a" {
+  route_table_id = aws_route_table.primary_rt.id
+  subnet_id      = aws_subnet.sn-web-1a.id
+}
+
+resource "aws_route_table_association" "public_rt_assoc_1b" {
+  route_table_id = aws_route_table.primary_rt.id
+  subnet_id      = aws_subnet.sn-web-1b.id
+}
+
+resource "aws_route_table_association" "public_rt_assoc_1c" {
+  route_table_id = aws_route_table.primary_rt.id
+  subnet_id      = aws_subnet.sn-web-1c.id
+}
+
+resource "aws_security_group" "web_sg" {
+  name        = "a4l-web-sg"
+  description = "Provides default traffic allowances"
+  vpc_id      = aws_vpc.a4l-vpc1.id
+
+  ingress {
+    description = "ssh from anywhere"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
+
 resource "aws_subnet" "sn-reserved-1a" {
   vpc_id                          = aws_vpc.a4l-vpc1.id
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.0.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7500::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1800::/64"
 
   tags = {
     Name = "sn-reserved-1a"
@@ -44,7 +105,7 @@ resource "aws_subnet" "sn-db-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.16.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7501::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1801::/64"
 
   tags = {
     Name = "sn-db-1a"
@@ -56,7 +117,7 @@ resource "aws_subnet" "sn-app-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.32.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7502::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1802::/64"
 
   tags = {
     Name = "sn-app-1a"
@@ -68,7 +129,8 @@ resource "aws_subnet" "sn-web-1a" {
   availability_zone               = "us-east-1a"
   cidr_block                      = "10.16.48.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7503::/64"
+  map_public_ip_on_launch         = true
+  ipv6_cidr_block                 = "2600:1f18:57e0:1803::/64"
 
   tags = {
     Name = "sn-web-1a"
@@ -80,7 +142,7 @@ resource "aws_subnet" "sn-reserved-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.64.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7504::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1804::/64"
 
   tags = {
     Name = "sn-reserved-1b"
@@ -92,7 +154,7 @@ resource "aws_subnet" "sn-db-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.80.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7505::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1805::/64"
 
   tags = {
     Name = "sn-db-1b"
@@ -104,7 +166,7 @@ resource "aws_subnet" "sn-app-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.96.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7506::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1806::/64"
 
   tags = {
     Name = "sn-app-1b"
@@ -116,7 +178,8 @@ resource "aws_subnet" "sn-web-1b" {
   availability_zone               = "us-east-1b"
   cidr_block                      = "10.16.112.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7507::/64"
+  map_public_ip_on_launch         = true
+  ipv6_cidr_block                 = "2600:1f18:57e0:1807::/64"
 
   tags = {
     Name = "sn-web-1b"
@@ -128,7 +191,7 @@ resource "aws_subnet" "sn-reserved-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.128.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7508::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1808::/64"
 
   tags = {
     Name = "sn-reserved-1c"
@@ -140,7 +203,7 @@ resource "aws_subnet" "sn-db-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.144.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:7509::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:1809::/64"
 
   tags = {
     Name = "sn-db-1c"
@@ -152,7 +215,7 @@ resource "aws_subnet" "sn-app-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.160.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:750a::/64"
+  ipv6_cidr_block                 = "2600:1f18:57e0:180a::/64"
 
   tags = {
     Name = "sn-app-1c"
@@ -164,7 +227,8 @@ resource "aws_subnet" "sn-web-1c" {
   availability_zone               = "us-east-1c"
   cidr_block                      = "10.16.176.0/20"
   assign_ipv6_address_on_creation = true
-  ipv6_cidr_block                 = "2600:1f18:4245:750b::/64"
+  map_public_ip_on_launch         = true
+  ipv6_cidr_block                 = "2600:1f18:57e0:180b::/64"
 
   tags = {
     Name = "sn-web-1c"
