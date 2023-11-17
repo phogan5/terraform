@@ -17,20 +17,20 @@ module "subnets" {
 }
 
 module "routing" {
-  source = "./modules/vpc/routing"
-  vpc_id = module.vpc.vpc_id
+  source         = "./modules/vpc/routing"
+  vpc_id         = module.vpc.vpc_id
   sn-reserved-1a = module.subnets.subnet-reserved-1a
   sn-reserved-1b = module.subnets.subnet-reserved-1b
   sn-reserved-1c = module.subnets.subnet-reserved-1c
-  sn-db-1a = module.subnets.subnet-db-1a
-  sn-db-1b = module.subnets.subnet-db-1b
-  sn-db-1c = module.subnets.subnet-db-1c
-  sn-app-1a = module.subnets.subnet-app-1a
-  sn-app-1b = module.subnets.subnet-app-1b
-  sn-app-1c = module.subnets.subnet-app-1c
-  sn-web-1a = module.subnets.subnet-web-1a
-  sn-web-1b = module.subnets.subnet-web-1b
-  sn-web-1c = module.subnets.subnet-web-1c
+  sn-db-1a       = module.subnets.subnet-db-1a
+  sn-db-1b       = module.subnets.subnet-db-1b
+  sn-db-1c       = module.subnets.subnet-db-1c
+  sn-app-1a      = module.subnets.subnet-app-1a
+  sn-app-1b      = module.subnets.subnet-app-1b
+  sn-app-1c      = module.subnets.subnet-app-1c
+  sn-web-1a      = module.subnets.subnet-web-1a
+  sn-web-1b      = module.subnets.subnet-web-1b
+  sn-web-1c      = module.subnets.subnet-web-1c
 }
 
 module "security" {

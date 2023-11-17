@@ -5,7 +5,7 @@ variable "profile" {
 }
 
 variable "vpc_id" {
-    type = string
-    description = "the vpc id of the working vpc"
-  
+  type        = string
+  description = "the vpc id of the working vpc"
+
 }
