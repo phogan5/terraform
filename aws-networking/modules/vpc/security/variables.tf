@@ -8,3 +8,5 @@ variable "vpc_id" {
   type        = string
   description = "the working vpc"
 }
+
+variable "flow_log_role" {}

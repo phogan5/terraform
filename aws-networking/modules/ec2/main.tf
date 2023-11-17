@@ -13,6 +13,7 @@ resource "aws_instance" "ec2_jumpbox" {
 
   tags = {
     Name = "a4l-bastion-host"
+    Description = "Publicly accessibly ec2 instance"
   }
 }
 
@@ -26,5 +27,6 @@ resource "aws_instance" "ec2_private" {
 
   tags = {
     Name = "a4l-private-host"
+    Description = "Can access the internet but cant be connected to"
   }
 }

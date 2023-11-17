@@ -36,6 +36,7 @@ module "routing" {
 module "security" {
   source = "./modules/vpc/security"
   vpc_id = module.vpc.vpc_id
+  flow_log_role = module.iam.flow_log_role
 }
 
 module "ec2" {
@@ -44,7 +45,7 @@ module "ec2" {
   ec2_profile   = module.iam.ec2_profile
   subnet-web-1a = module.subnets.subnet-web-1a
   subnet-app-1a = module.subnets.subnet-app-1a
-  web_sg        = module.vpc.web_sg
+  web_sg        = module.security.web_sg
 }
 
 module "iam" {
