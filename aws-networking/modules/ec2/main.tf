@@ -9,7 +9,7 @@ resource "aws_instance" "ec2_jumpbox" {
   subnet_id            = var.subnet-web-1a
   key_name             = "us-east-1"
   iam_instance_profile = var.ec2_profile
-  security_groups      = [var.web_sg]
+  vpc_security_group_ids      = [var.web_sg]
 
   tags = {
     Name = "a4l-bastion-host"
@@ -23,10 +23,10 @@ resource "aws_instance" "ec2_private" {
   subnet_id            = var.subnet-app-1a
   key_name             = "us-east-1"
   iam_instance_profile = var.ec2_profile
-  security_groups      = [var.web_sg]
+  vpc_security_group_ids     = [var.web_sg]
 
   tags = {
     Name = "a4l-private-host"
-    Description = "Can access the internet but cant be connected to"
+    Description = "Can access the internet but cant be connected to except via instance connect endpoint in app-1a subnet"
   }
 }

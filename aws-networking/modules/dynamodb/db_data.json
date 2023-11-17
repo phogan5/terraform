@@ -1,0 +1,32 @@
+{
+   "Item1": {"UserId": {
+      "S": "001"
+    },
+    "GameTitle": {
+      "S": "Halo"
+    },
+    "TopScore": {
+      "N": "1000"
+    }
+  },
+    "Item2": {"UserId": {
+        "S": "002"
+    },
+    "GameTitle": {
+        "S": "Skyrim"
+    },
+    "TopScore": {
+        "N": "2934"
+    }
+  },
+    "Item3": {"UserId": {
+        "S": "003"
+    },
+    "GameTitle": {
+        "S": "Pacman"
+    },
+    "TopScore": {
+        "N": "9999"
+    }
+  }
+}

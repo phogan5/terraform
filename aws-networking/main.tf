@@ -5,6 +5,13 @@ terraform {
     region  = "us-east-1"
     encrypt = true
   }
+
+  required_providers {
+    aws = {
+      version = "~> 5.26.0"
+    }
+  }
+
 }
 
 module "vpc" {
@@ -14,6 +21,14 @@ module "vpc" {
 module "subnets" {
   source = "./modules/vpc/subnets"
   vpc_id = module.vpc.vpc_id
+}
+
+module "endpoints" {
+  source = "./modules/vpc/endpoints"
+  subnet-app-1a = module.subnets.subnet-app-1a
+  subnet-app-1b = module.subnets.subnet-app-1b
+  subnet-app-1c = module.subnets.subnet-app-1c
+
 }
 
 module "routing" {
@@ -46,6 +61,12 @@ module "ec2" {
   subnet-web-1a = module.subnets.subnet-web-1a
   subnet-app-1a = module.subnets.subnet-app-1a
   web_sg        = module.security.web_sg
+}
+
+module "dynamodb" {
+  source = "./modules/dynamodb"
+  json_data  = file("./modules/dynamodb/db_data.json")
+
 }
 
 module "iam" {
