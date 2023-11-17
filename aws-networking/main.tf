@@ -25,9 +25,17 @@ module "subnets" {
 
 module "endpoints" {
   source = "./modules/vpc/endpoints"
+  vpc_id = module.vpc.vpc_id
   subnet-app-1a = module.subnets.subnet-app-1a
   subnet-app-1b = module.subnets.subnet-app-1b
   subnet-app-1c = module.subnets.subnet-app-1c
+  subnet-db-1a = module.subnets.subnet-db-1a
+  subnet-db-1b = module.subnets.subnet-db-1b
+  subnet-db-1c = module.subnets.subnet-db-1c
+  natgw-1-rt = module.routing.natgw-1-rt
+  natgw-2-rt = module.routing.natgw-2-rt
+  natgw-3-rt = module.routing.natgw-3-rt
+
 
 }
 
@@ -60,6 +68,7 @@ module "ec2" {
   ec2_profile   = module.iam.ec2_profile
   subnet-web-1a = module.subnets.subnet-web-1a
   subnet-app-1a = module.subnets.subnet-app-1a
+  subnet-db-1a = module.subnets.subnet-db-1a
   web_sg        = module.security.web_sg
 }
 
