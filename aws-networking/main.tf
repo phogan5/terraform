@@ -9,6 +9,16 @@ terraform {
 
 module "vpc" {
   source = "./modules/vpc"
+}
+
+module "subnets" {
+  source = "./modules/vpc/subnets"
+  vpc_id = module.vpc.vpc_id
+}
+
+module "routing" {
+  source = "./modules/vpc/routing"
+  vpc_id = module.vpc.vpc_id
   sn-reserved-1a = module.subnets.subnet-reserved-1a
   sn-reserved-1b = module.subnets.subnet-reserved-1b
   sn-reserved-1c = module.subnets.subnet-reserved-1c
@@ -21,14 +31,11 @@ module "vpc" {
   sn-web-1a = module.subnets.subnet-web-1a
   sn-web-1b = module.subnets.subnet-web-1b
   sn-web-1c = module.subnets.subnet-web-1c
-
 }
 
-module "subnets" {
-  source = "./modules/vpc/subnets"
+module "security" {
+  source = "./modules/vpc/security"
   vpc_id = module.vpc.vpc_id
-
-
 }
 
 module "ec2" {
