@@ -20,5 +20,5 @@ variable "az1" {
   default = "us-east-1"
 }
 variable "az2" {
-  default = "us-west-1"
+  default = "us-east-2"
 }
