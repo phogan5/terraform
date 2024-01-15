@@ -8,7 +8,7 @@ terraform {
   }
   required_providers {
     aws = {
-      version = "~>5.0"
+      version = "~>5.26.0"
       source  = "hashicorp/aws"
     }
   }
@@ -21,10 +21,4 @@ provider "aws" {
 
 module "vpc" {
   source = "./modules/networking"
-}
-
-resource "null_resource" "example" {
-  triggers = {
-    value = "An example resource that does absolutely nothing"
-  }
 }
