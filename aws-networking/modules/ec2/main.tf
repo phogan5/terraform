@@ -54,6 +54,6 @@ resource "aws_instance" "ec2_bonus" {
   vpc_security_group_ids     = [var.web_sg]
 
   tags = {
-    Name = "checkov-testing"
+    Name = "checkov_testing"
   }
 }
