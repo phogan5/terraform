@@ -75,12 +75,11 @@ jobs:
         cli_config_credentials_token: ${{ secrets.tf_cloud_api_token }}
 
 
-    - name: Troubleshoot working dir
+    - name: Change to working dir
       run: |
+        cd resume-project
         pwd
-        ls
-      
-
+        
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
