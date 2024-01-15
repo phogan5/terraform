@@ -22,3 +22,9 @@ terraform {
 module "vpc" {
   source = "./modules/networking"
 }
+
+resource "null_resource" "example" {
+  triggers = {
+    value = "An example resource that does nothing"
+  }
+}
