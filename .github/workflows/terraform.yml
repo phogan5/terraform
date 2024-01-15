@@ -46,7 +46,9 @@ name: 'Terraform'
 
 on:
   push:
-    branches: [ "master", "dev" ]
+    branches:
+      - 'master'
+      - 'dev'
   pull_request:
 
 permissions:
