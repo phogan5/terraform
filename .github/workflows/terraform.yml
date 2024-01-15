@@ -45,12 +45,7 @@
 name: 'Terraform'
 
 on:
-  push:
-    branches:
-      - master
-      - dev
-  pull_request:
-  
+  push
 
 permissions:
   contents: read
