@@ -13,12 +13,12 @@ variable "private_subnet_1_cidr" {
   default = "10.0.3.0/24"
 }
 variable "private_subnet_2_cidr" {
-  default = "10.0.5.0/24"
+  default = "10.0.4.0/24"
 }
 
 variable "az1" {
   default = "us-east-1"
 }
 variable "az2" {
-  default = "us-west-1"
+  default = "us-east-2"
 }
