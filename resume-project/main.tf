@@ -1,30 +1,18 @@
-terraform {
-  backend "remote" {
-    organization = "example-org-4de848"
 
-    workspaces {
-      name = "generic-workspace"
-    }
-  }
-  required_providers {
-    aws = {
-        version = "~>5.0"
-        source = "hashicorp/aws"
-    }
-  }
-}
+     terraform {
+       backend "remote" {
+          The name of your Terraform Cloud organization.
+         organization = "example-organization"
 
-  provider "aws" {
-    region = "us-east-1"
-  }
+          The name of the Terraform Cloud workspace to store Terraform state files in.
+         workspaces {
+           name = "example-workspace"
+         }
+       }
+     }
 
-
-module "vpc" {
-  source = "./modules/networking"
-}
-
-resource "null_resource" "example" {
-  triggers = {
-    value = "An example resource that does absolutely nothing"
-  }
-}
+     resource "null_resource" "example" {
+       triggers = {
+         value = "A example resource that does nothing!"
+       }
+     }
