@@ -1,6 +1,6 @@
 resource "aws_vpc" "primary_vpc" {
     cidr_block = var.primary_vpc_cidr
-    instance_tenancy = default
+    instance_tenancy = "default"
     tags = {
         Name = "web_app_vpc"
         Description = "The primary VPC for web app testing. Built using terraform from https://github.com/phogan5/terraform"
