@@ -19,5 +19,5 @@ jobs:
         id: checkov
         uses: bridgecrewio/checkov-action@master
         with:
-          directory: resume-project
+          directory: terraform/resume-project
           framework: terraform
