@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "flow_log_s3" {
 }
 
 
-resource "aws_vpc" "tf_vpc" {
+resource "aws_vpc" "secure_vpc" {
     cidr_block = "10.0.0.0/16"
     tags = {
       "Name" = "secure_vpc"
@@ -21,7 +21,7 @@ resource "aws_flow_log" "tf_flow_log" {
   log_destination      = aws_s3_bucket.flow-log-bucket.arn
   log_destination_type = "s3"
   traffic_type         = "ALL"
-  vpc_id               = aws_vpc.tf_vpc.id
+  vpc_id               = aws_vpc.secure_vpc.id
 }
 
 resource "aws_s3_bucket" "flow-log-bucket" {
@@ -29,11 +29,21 @@ resource "aws_s3_bucket" "flow-log-bucket" {
 }
 
 resource "aws_internet_gateway" "tf_igw" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
+}
+
+resource "aws_route_table" "tf_public_rt" {
+    vpc_id = aws_vpc.secure_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.tf_igw.id
+  }
+    
 }
 
 resource "aws_subnet" "tf_subnet1" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
     cidr_block = "10.0.0.0/20"
     availability_zone = "us-east-1a"
 
@@ -42,7 +52,7 @@ resource "aws_subnet" "tf_subnet1" {
     }
 }
 resource "aws_subnet" "tf_subnet2" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
     cidr_block = "10.0.16.0/20"
     availability_zone = "us-east-1b"
     tags = {
@@ -50,7 +60,7 @@ resource "aws_subnet" "tf_subnet2" {
     }
 }
 resource "aws_subnet" "tf_subnet3" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
     cidr_block = "10.0.32.0/20"
     availability_zone = "us-east-1c"
 
@@ -59,7 +69,7 @@ resource "aws_subnet" "tf_subnet3" {
     }
 }
 resource "aws_subnet" "tf_subnet4" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
     cidr_block = "10.0.48.0/20"
     availability_zone = "us-east-1d"
 
@@ -68,7 +78,7 @@ resource "aws_subnet" "tf_subnet4" {
     }
 }
 resource "aws_subnet" "tf_subnet5" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
     cidr_block = "10.0.64.0/20"
     availability_zone = "us-east-1e"
 
@@ -77,7 +87,7 @@ resource "aws_subnet" "tf_subnet5" {
     }
 }
 resource "aws_subnet" "tf_subnet6" {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = aws_vpc.secure_vpc.id
     cidr_block = "10.0.80.0/20"
     availability_zone = "us-east-1f"
 
@@ -89,7 +99,7 @@ resource "aws_subnet" "tf_subnet6" {
 
 resource "aws_security_group" "homelab-sg" {
     name = "homelab-sg"
-    vpc_id = var.vpc_id
+    vpc_id = aws_vpc.secure_vpc.id
 
         ingress {
         description = "rdp access"
