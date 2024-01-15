@@ -62,8 +62,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: resume-project
-
+        
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
