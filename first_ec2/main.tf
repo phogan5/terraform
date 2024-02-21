@@ -1,4 +1,12 @@
 terraform {
+
+  backend "s3" {
+    bucket = "phogan-tf-state"
+    key = "first_ec2"
+    dynamodb_table = "terraform-backend-locks"
+    region = "us-east-1"
+    encrypt = true
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -7,17 +15,6 @@ terraform {
   }
 
   required_version = ">= 1.2.0"
-}
-
-terraform {
-  backend "s3" {
-    bucket = "tf-backend-phi87819"
-    key = "global/s3/first_ec2/terraform.tfstate"
-    region = "us-east-1"
-
-    dynamodb_table = "tf-backend-phi87819"
-    encrypt = true
-  }
 }
 
 provider "aws" {
